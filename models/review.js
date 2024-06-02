@@ -13,15 +13,12 @@ const reviewSchema = mongoose.Schema({
     },
     rating: {
         type: Number,
-        required: true
+        required: true,
+        enum: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
     },
     comment: {
         type: String
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
-});
+}, { timestamps: true });
 
 module.exports.Review = mongoose.model("Review", reviewSchema);

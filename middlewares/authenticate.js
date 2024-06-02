@@ -12,7 +12,7 @@ module.exports.authenticate = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (error, user) => {
         if (error) {
             console.error(error);
-            return res.status(401).send("User token could not be authorized");
+            return res.status(401).send("User token could not be authenticated");
         }
         req.user = user;
         next();

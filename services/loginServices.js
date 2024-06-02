@@ -10,13 +10,13 @@ module.exports.giveToken = (user) => {
         return jwt.sign(
             {id: user._id, admin: true},
             process.env.JWT_SECRET,
-            {expiresIn: "30min"}
+            {expiresIn: "24h"}
         );
     } else {
         return jwt.sign(
             {id: user._id, admin: false},
             process.env.JWT_SECRET,
-            {expiresIn: "30min"}
+            {expiresIn: "24h"}
         );
     }
 }

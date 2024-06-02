@@ -22,10 +22,10 @@ module.exports.deleteThem = async (req, res) => {
         if (!user) {
             return res.status(404).send("No such user found");
         }
-        res.status(200).send(user)
+        res.status(200).send(user);
     } catch (error) {
         console.error(error);
-        res.sendStatus(500)
+        res.sendStatus(500);
     }
 
 }

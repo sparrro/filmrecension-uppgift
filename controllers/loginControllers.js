@@ -1,7 +1,7 @@
 const { User } = require("../models/user");
 const { comparePassword, giveToken } = require("../services/loginServices")
 
-module.exports.logIn = async (req, res) => { //ta in (username || email) och password
+module.exports.logIn = async (req, res) => {
 
     try {
         let user;

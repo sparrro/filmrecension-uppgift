@@ -21,7 +21,9 @@ const movieSchema = mongoose.Schema({
     },
     genre: {
         type: [String],
-        required: true
+        validate: [(genres) => {
+            return genres.length>0;
+        }, "Movies must have at least one genre"]
     }
 });
 

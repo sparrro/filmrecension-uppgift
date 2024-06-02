@@ -12,28 +12,25 @@ const {
     deleteMovie
 } = require("../controllers/movieControllers")
 
+//lägg till en ny film - GJORT
+route.post("/", authenticate, authenticateAdmin, addMovie);
 
-route.get("/test", authenticate, authenticateAdmin, (req, res) => {
-    return res.status(200).json(req.user)
-})
-
-
-//lägg till en ny film
-route.post("/", addMovie);
-
-//hämta en lista med alla filmer
+//hämta en lista med alla filmer - GJORT
 route.get("/", getAllMovies);
 
-//hämta detaljer för en specifik film
+//hämta detaljer för en specifik film - GJORT
 route.get("/:id", getMovie);
 
-//uppdatera en specifik film
-route.put("/:id", updateMovie);
+//uppdatera en specifik film - GJORT
+route.put("/:id", authenticate, authenticateAdmin, updateMovie);
 
-//hämta alla recensioner för en specifik film
+//hämta alla recensioner för en specifik film - KRÄVER REVIEWSROUTES
 route.get("/:id/reviews", getMovieReviews);
 
-//ta bort en specifik film
-route.delete("/:id", deleteMovie);
+//hämta en lista med alla filmer och deras genomsnittliga betyg - VG
+//route.get("/ratings", getAverageRatings);
+
+//ta bort en specifik film - GJORT
+route.delete("/:id", authenticate, authenticateAdmin, deleteMovie);
 
 module.exports = route;
