@@ -1,5 +1,8 @@
 const route = require("express").Router();
 
+const {authenticate} = require("../middlewares/authenticate")
+const {authenticateAdmin} = require("../middlewares/adminAuth")
+
 const {
     addMovie,
     getAllMovies,
@@ -8,6 +11,12 @@ const {
     getMovieReviews,
     deleteMovie
 } = require("../controllers/movieControllers")
+
+
+route.get("/test", authenticate, authenticateAdmin, (req, res) => {
+    return res.status(200).json(req.user)
+})
+
 
 //lägg till en ny film
 route.post("/", addMovie);
