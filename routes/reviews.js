@@ -7,7 +7,7 @@ const {
     getReview,
     updateReview,
     deleteReview
-} = require("../controllers/reviewControllers")
+} = require("../controllers/reviewControllers");
 
 //lägg till en ny recension - GJORT
 route.post("/", authenticate, addReview);

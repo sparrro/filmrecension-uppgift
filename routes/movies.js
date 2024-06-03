@@ -24,7 +24,7 @@ route.get("/:id", getMovie);
 //uppdatera en specifik film - GJORT
 route.put("/:id", authenticate, authenticateAdmin, updateMovie);
 
-//hämta alla recensioner för en specifik film - KRÄVER REVIEWSROUTES
+//hämta alla recensioner för en specifik film - GJORT
 route.get("/:id/reviews", getMovieReviews);
 
 //hämta en lista med alla filmer och deras genomsnittliga betyg - VG

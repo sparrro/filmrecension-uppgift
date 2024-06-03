@@ -1,4 +1,5 @@
 const { Movie } = require("../models/movie");
+const { Review } = require("../models/review");
 const { updateGenres } = require("../services/movieServices");
 
 module.exports.addMovie = async (req, res) => {
@@ -90,6 +91,17 @@ module.exports.updateMovie = async (req, res) => {
 }
 
 module.exports.getMovieReviews = async (req, res) => {
+
+    try {
+        const reviews = await Review.find({movieId: req.params.id});
+        if (reviews.length<1) {
+            return res.status(404).send("No reviews found");
+        }
+        res.status(200).send(reviews);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Failed to fetch movie reviews");
+    }
 
 }
 
