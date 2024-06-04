@@ -25,3 +25,52 @@ module.exports.updateGenres = async (id, removals, additions) => {
     return newGenres;
 
 }
+
+module.exports.ratingsPipeline = [
+    {
+        $lookup: {
+            from: "reviews",
+            localField: "_id",
+            foreignField: "movieId",
+            as: "reviews"
+        }
+    },
+    {
+        $unwind: {
+            path: "$reviews",
+            preserveNullAndEmptyArrays: true
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            title: { $first: "$title" },
+            director: { $first: "$director" },
+            releaseYear: { $first: "$releaseYear" },
+            averageRating: { $avg: "$reviews.rating" },
+            reviewCount: {
+                $sum: {
+                    $cond: [{
+                        $ifNull: [
+                            "$reviews._id",
+                            false
+                        ]
+                    }, 1, 0]
+                }
+            }
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            movieId: "$_id",
+            title: 1,
+            director: 1,
+            releaseYear: 1,
+            averageRating: {
+                $ifNull: ["$averageRating", 0]
+            },
+            reviewCount: 1
+        }
+    }
+];

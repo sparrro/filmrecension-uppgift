@@ -1,6 +1,6 @@
 const { Movie } = require("../models/movie");
 const { Review } = require("../models/review");
-const { updateGenres } = require("../services/movieServices");
+const { updateGenres, ratingsPipeline } = require("../services/movieServices");
 
 module.exports.addMovie = async (req, res) => {
 
@@ -101,6 +101,18 @@ module.exports.getMovieReviews = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send("Failed to fetch movie reviews");
+    }
+
+}
+
+module.exports.getAverageRatings = async (req, res) => {
+
+    try {
+        const results = await Movie.aggregate(ratingsPipeline).exec();
+        res.status(200).send(results);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("fuck");
     }
 
 }
