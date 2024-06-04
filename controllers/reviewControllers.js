@@ -4,7 +4,7 @@ const { alreadyReviewed, checkAuthor } = require("../services/reviewServices");
 module.exports.addReview = async (req, res) => {
 
     if (alreadyReviewed(req.body.movieId, req.user.id) == true) {
-        return res.status(400).send("You've already reviewed that one!")
+        return res.status(400).send("You've already reviewed that one!");
     }
 
     try {

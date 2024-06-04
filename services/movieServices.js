@@ -62,15 +62,15 @@ module.exports.ratingsPipeline = [
     },
     {
         $project: {
-            _id: 0,
+            _id: false,
             movieId: "$_id",
-            title: 1,
-            director: 1,
-            releaseYear: 1,
+            title: true,
+            director: true,
+            releaseYear: true,
             averageRating: {
                 $ifNull: ["$averageRating", 0]
             },
-            reviewCount: 1
+            reviewCount: true
         }
     }
 ];
