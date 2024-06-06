@@ -47,6 +47,7 @@ module.exports.ratingsPipeline = [
             title: { $first: "$title" },
             director: { $first: "$director" },
             releaseYear: { $first: "$releaseYear" },
+            genre: { $first: "$genre" },
             averageRating: { $avg: "$reviews.rating" },
             reviewCount: {
                 $sum: {
@@ -62,11 +63,11 @@ module.exports.ratingsPipeline = [
     },
     {
         $project: {
-            _id: false,
-            movieId: "$_id",
+            _id: true,
             title: true,
             director: true,
             releaseYear: true,
+            genre: true,
             averageRating: {
                 $ifNull: ["$averageRating", 0]
             },
